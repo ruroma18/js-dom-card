@@ -6,13 +6,14 @@ document; // тоже DOM
 
 let clickCount = 0;
 
-function clickHandler() {
-  alert(`Вы нажали ${(clickCount += 1)} раз`);
-}
-// кому
 const [button] = document.getElementsByTagName('button');
-// как
+
 button.addEventListener('click', clickHandler);
+
+function clickHandler() {
+  button.textContent = `<h1>Меня нажали ${clickCount +=1} раз</h1>`;
+  button.style.padding = `${clickCount}px`;
+}
 
 /*
   Сделайте чтобы по клику на кнопку
