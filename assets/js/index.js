@@ -1,52 +1,46 @@
-window; // глобальный обьект браузера
+let test = 1234;
 
-window.document; // DOM
+// console.log(`log: ${test}`);
 
-document; // тоже DOM
+// function log() {
+//   console.log(`log: ${test}`);
+// }
 
-let clickCount = 0;
+function wrapper() {
+  let test = 43211;
+  // console.log(`wrapper: ${test}`);
 
-const [button] = document.getElementsByTagName('button');
+  function log() {
+    console.log(test);
+  }
 
-button.addEventListener('click', clickHandler);
-
-function clickHandler() {
-  button.textContent = `<h1>Меня нажали ${(clickCount += 1)} раз</h1>`;
-  button.style.padding = `${clickCount}px`;
+  log();
 }
 
-// поиск элементов
-// document.getElementsByTagName - все элементы с определенным тегом
-const headers = document.getElementsByClassName('header-text');
+function makeCounter() {
+  let i = 0; // переменная в замыкании
 
-const nameInputs = document.getElementsByName('firstName');
-const textPar = document.getElementById('main-text');
+  function increment() {
+    debugger;
+    i++;
+    return i;
+  }
 
-const elem = document.querySelector('.main-article > .text');
-const nameSelector = document.querySelector('[name]');
-const nameSelectors = document.querySelectorAll('[name]');
+  function decrement() {
+    debugger;
+    i--;
+    return i;
+  }
 
-const taskBtn = document.querySelector('#addTaskBtn');
+  function getCounter() {
+    return i;
+  }
 
-const taskList = document.querySelector('#task-list');
-
-taskBtn.addEventListener('click', addTaskListener);
-
-let taskCounter = 1;
-
-function addTaskListener() {
-  const listItemElem = document.createElement('li');
-  listItemElem.textContent = `Task ${taskCounter++}`;
-  taskList.append(listItemElem);
-  console.log(listItemElem);
+  return {
+    increment: increment,
+    decrement: decrement,
+    getCounter: getCounter,
+  };
 }
 
-/*
-Создайте кнопку добавления сообщений
-кнпка будет добавлять елементы параграфов с текстом "сообщения"
-текст должен иметь синий цвет и размер шрифта должен быть 20 пикселей
-текст будет присеодинятся к элементу body
-*/
-
-
-// text-align -> textAlign
+const obj = makeCounter();
