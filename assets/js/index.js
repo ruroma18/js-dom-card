@@ -44,3 +44,21 @@ function makeCounter() {
 }
 
 const obj = makeCounter();
+
+/*
+Создать функцию makeAdder, она принимает число Х
+и возвращать другую функцию 
+возвращаенная функция будет принимать число Y и должна 
+складывать Х c Y и возвращать результат
+
+const adder = makeAdder(100);
+
+adder(50) // 150
+adder(30) // 180
+
+*/
+
+const makeAdder = (x) => (y) => (x += y);
+
+const adder = makeAdder(100);
+const adder2 = makeAdder(-5000);
