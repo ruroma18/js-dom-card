@@ -1,20 +1,19 @@
 'use strict';
 
-/*
-  Даны 2 конпки
-  при наведении на кнопку close она должна от нас убегать
-  при наведении на Open никто никуда не бежит
-*/
+const imgSrcArray = [
+  'https://www.bhaktiphotos.com/wp-content/uploads/2018/04/Mahadev-Bhagwan-Photo-for-Devotee.jpg',
+  'https://tinypng.com/images/social/website.jpg',
+];
 
 const btn1 = document.getElementById('btn1');
-// const btn2 = document.getElementById('btn2');
+const img = document.getElementById('img');
+
+let currentIndex = 0;
 
 function listener(e) {
-  console.log(e.currentTarget);
+  const nextSrc = currentIndex === 0 ? imgSrcArray[1] : imgSrcArray[0];
+  currentIndex = currentIndex === 0 ? 1 : 0;
+  img.setAttribute('src', nextSrc);
 }
 
-btn1.addEventListener('click', listener, { capture: true, once: true });
-document.body.addEventListener('click', listener, true);
-document.documentElement.addEventListener('click', listener, true);
-document.addEventListener('click', listener);
-window.addEventListener('click', listener, true);
+btn1.addEventListener('click', listener);
