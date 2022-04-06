@@ -7,18 +7,14 @@
 */
 
 const btn1 = document.getElementById('btn1');
-const btn2 = document.getElementById('btn2');
+// const btn2 = document.getElementById('btn2');
 
-function switchHandler(e) {
-  const openButton = e.target === btn1 ? btn1 : btn2;
-  const closeButton = e.target === btn1 ? btn2 : btn1;
-
-  const firstButtonText = openButton.textContent;
-  openButton.textContent = closeButton.textContent;
-  closeButton.textContent = firstButtonText;
-
-  openButton.removeEventListener('mouseover', switchHandler);
-  closeButton.addEventListener('mouseover', switchHandler);
+function listener(e) {
+  console.log(e.currentTarget);
 }
 
-btn2.addEventListener('mouseover', switchHandler);
+btn1.addEventListener('click', listener, { capture: true, once: true });
+document.body.addEventListener('click', listener, true);
+document.documentElement.addEventListener('click', listener, true);
+document.addEventListener('click', listener);
+window.addEventListener('click', listener, true);
