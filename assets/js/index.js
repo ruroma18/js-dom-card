@@ -6,7 +6,13 @@
 переменной к которой присоединяли слушатель пользоватся нельзя
 */
 
-// const btn1 = document.getElementById('btn1');
+const btn1 = document.getElementById('btn1');
+btn1.addEventListener('click', (e) => {
+  console.log(e)
+  // alert(e.target.textContent);
+
+  alert(btn1.textContent)
+});
 // const article = document.querySelector('.main-article')
 
 // const listener = (e) => {
