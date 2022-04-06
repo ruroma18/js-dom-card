@@ -2,18 +2,23 @@
 
 /*
   Даны 2 конпки
-  при наведении на кнопку надо 
-  поменять текст на текст с другой кнопки
+  при наведении на кнопку close она должна от нас убегать
+  при наведении на Open никто никуда не бежит
 */
 
 const btn1 = document.getElementById('btn1');
 const btn2 = document.getElementById('btn2');
 
 function switchHandler(e) {
-  const firstButtonText = btn1.textContent;
-  btn1.textContent = btn2.textContent;
-  btn2.textContent = firstButtonText;
+  const openButton = e.target === btn1 ? btn1 : btn2;
+  const closeButton = e.target === btn1 ? btn2 : btn1;
+
+  const firstButtonText = openButton.textContent;
+  openButton.textContent = closeButton.textContent;
+  closeButton.textContent = firstButtonText;
+
+  openButton.removeEventListener('mouseover', switchHandler);
+  closeButton.addEventListener('mouseover', switchHandler);
 }
 
-btn1.addEventListener('mouseover', switchHandler);
 btn2.addEventListener('mouseover', switchHandler);
