@@ -1,32 +1,19 @@
 'use strict';
 
 /*
-Есть кнопка с тестом внутри
-По нажатию на кнопку заалертите её текст
-переменной к которой присоединяли слушатель пользоватся нельзя
+  Даны 2 конпки
+  при наведении на кнопку надо 
+  поменять текст на текст с другой кнопки
 */
 
 const btn1 = document.getElementById('btn1');
-btn1.addEventListener('click', (e) => {
-  console.log(e)
-  // alert(e.target.textContent);
+const btn2 = document.getElementById('btn2');
 
-  alert(btn1.textContent)
-});
-// const article = document.querySelector('.main-article')
+function switchHandler(e) {
+  const firstButtonText = btn1.textContent;
+  btn1.textContent = btn2.textContent;
+  btn2.textContent = firstButtonText;
+}
 
-// const listener = (e) => {
-//   // console.log(e);
-//   console.group();
-//   console.log(e.target); // куда кликнули
-//   console.log(e.currentTarget); // тот чей обработчик
-//   console.groupEnd();
-// };
-
-// btn1.addEventListener('click', listener);
-// article.addEventListener('click', listener);
-// document.body.addEventListener('click', listener);
-// document.addEventListener('click', listener);
-
-// btn1.removeEventListener('click',listener);
-
+btn1.addEventListener('mouseover', switchHandler);
+btn2.addEventListener('mouseover', switchHandler);
