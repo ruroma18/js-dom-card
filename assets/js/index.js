@@ -1,18 +1,26 @@
 'use strict';
 
-const testBtn =document.getElementById('test');
+// data-*
 
-testBtn.style.color = 'green';
-testBtn.style.backgroundColor = 'black';
-testBtn.style.fontSize = '30px';
+const [btn1] = document.querySelectorAll('button');
 
-console.log(testBtn.className);
-console.log(testBtn.classList);
+const attr1 = btn1.getAttribute('my-attr');
 
+const attr2 = btn1.getAttribute('data-my-attr');
 
-testBtn.classList.add('new', 'new-class-1');
-testBtn.classList.remove('test', 'new-btn', 'tsfddsgsd');
+btn1.addEventListener('click', (e) => {
+  
+  const {
+    target: { dataset: {myAttr} },
+  } = e;
 
-testBtn.classList.toggle('toggled');
-testBtn.classList.toggle('toggled');
+  console.log(myAttr);
+});
 
+/*
+  Есть див с конпками
+  по нажатию на кнопку поменять цвет / цвет фона дива на тот
+  который на кнопке указан
+  информация про цвет кнопки хранится в data-* аттрибуте
+
+*/
