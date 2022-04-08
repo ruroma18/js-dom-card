@@ -14,12 +14,14 @@ form.addEventListener('submit', (e) => {
   console.dir(elements.remember.checked); // для checkbox, radio
 });
 
-// document.getElementById('btn').addEventListener('click', (e) => {
-//   e.stopPropagation(); // останавливает процесс всплытия событий,
-//   //  обработчики дальше по списку не запускаются
-//   console.log('click on btn');
-// });
+const elem = document.createElement('article');
 
-// document.body.addEventListener('click', (e) => {
-//   console.log('click on body');
-// });
+form.append(elem);
+
+/*
+  todo-list 
+  у вас есть инпутик в который вы вводите задачу которую 
+  задачи должны появится в отдельном списке как элементы в верстке
+  и одновременно заносится в качестве строк в отдельный массив
+*/
+const todoState = [];
