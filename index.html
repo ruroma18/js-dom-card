@@ -9,22 +9,11 @@
     <script src="./assets/js/index.js" defer></script>
   </head>
   <body>
-    <button
-      data-my-attr="2"
-      data-test="data attribute"
-      data-boolean
-      data-capsAttribute="CAPS"
-      my-attr="1"
-    >
-      Login
-    </button>
-    <button>Sign Up</button>
-
-    <div id="root" style="width: 300px; height: 200px; background-color: gray">
-      <button data-color="red">Red</button>
-      <button data-color="green">Green</button>
-      <button data-color="blue">Blue</button>
-      <button data-color="gray">Gray</button>
-    </div>
+    <form id="login-form">
+      <label>Login: <input name="login" autocomplete="name" /></label>
+      <label>Password: <input name="password" type="password" /></label>
+      <label><input type="checkbox" name="remember" />Remember me</label>
+      <button id="btn">Login</button>
+    </form>
   </body>
 </html>

@@ -1,43 +1,25 @@
 'use strict';
 
-/*
-  Есть див с конпками
-  по нажатию на кнопку поменять цвет / цвет фона дива на тот
-  который на кнопке указан
-  информация про цвет кнопки хранится в data-* аттрибуте
-*/
+const form = document.getElementById('login-form');
 
-// const div = document.getElementById('root');
+form.addEventListener('submit', (e) => {
+  e.preventDefault(); // предотвращает стандартое поведение
+  const {
+    target: { elements },
+  } = e;
 
-// function listener(e) {
-//   const {
-//     target: {
-//       dataset: { color },
-//       parentElement,
-//     },
-//   } = e;
-//   console.dir(e.target);
-//   parentElement.style.backgroundColor = color;
-// }
+  // где искать данные из инпутов
+  console.dir(elements.login.value); // основной
+  console.dir(elements.password.value);
+  console.dir(elements.remember.checked); // для checkbox, radio
+});
 
-// const btns = document.querySelectorAll('button');
-
-// btns.forEach((btn) => {
-//   btn.addEventListener('click', listener);
+// document.getElementById('btn').addEventListener('click', (e) => {
+//   e.stopPropagation(); // останавливает процесс всплытия событий,
+//   //  обработчики дальше по списку не запускаются
+//   console.log('click on btn');
 // });
 
-function listener(e) {}
-
-const div = document.querySelector('#root');
-
-div.addEventListener('click', (e) => {
-  const {
-    currentTarget,
-    target: {
-      dataset: { color },
-    },
-  } = e;
-  if (color) {
-    currentTarget.style.backgroundColor = color;
-  }
-});
+// document.body.addEventListener('click', (e) => {
+//   console.log('click on body');
+// });
