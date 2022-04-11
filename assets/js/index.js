@@ -1,22 +1,50 @@
 'use strict';
 
-const form = document.getElementById('login-form');
+const form = document.getElementById('todo-form');
+const todoList = document.getElementById('todo-list');
 
 form.addEventListener('submit', (e) => {
-  e.preventDefault(); // предотвращает стандартое поведение
+  e.preventDefault();
   const {
     target: { elements },
+    target,
   } = e;
 
-  // где искать данные из инпутов
-  console.dir(elements.login.value); // основной
-  console.dir(elements.password.value);
-  console.dir(elements.remember.checked); // для checkbox, radio
+  const taskText = elements.task.value.trim();
+
+  if (taskText) {
+    todoState.push(taskText);
+
+    const li = createLiElement(taskText);
+    todoList.append(li);
+  }
+
+  target.reset();
 });
 
-const elem = document.createElement('article');
+function createLiElement(taskText) {
+  const li = document.createElement('li');
+  const liTextContent = document.createTextNode(taskText);
 
-form.append(elem);
+  li.append(liTextContent, createDeleteBtn());
+
+  return li;
+}
+
+function createDeleteBtn() {
+  const deleteBtn = document.createElement('button');
+  deleteBtn.textContent = 'X';
+  deleteBtn.addEventListener('click', deleteHander);
+
+  return deleteBtn;
+}
+
+function deleteHander({ target: { parentElement } }) {
+  parentElement.remove();
+  const index = todoState.indexOf(parentElement.firstChild.textContent);
+
+  todoState.splice(index, 1);
+}
 
 /*
   todo-list 
