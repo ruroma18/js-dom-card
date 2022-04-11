@@ -26,22 +26,29 @@ function createLiElement(taskText) {
   const li = document.createElement('li');
   const liTextContent = document.createTextNode(taskText);
 
-  li.append(liTextContent, createDeleteBtn());
+  const handlerWithLiThis = deleteHander.bind(li);
+
+  li.append(liTextContent, createDeleteBtn(handlerWithLiThis, taskText));
 
   return li;
 }
 
-function createDeleteBtn() {
+function createDeleteBtn(onDelete, taskText) {
   const deleteBtn = document.createElement('button');
-  deleteBtn.textContent = 'X';
-  deleteBtn.addEventListener('click', deleteHander);
+  deleteBtn.setAttribute('data-value', taskText);
+  deleteBtn.textContent = 'Удалить';
+  deleteBtn.addEventListener('click', onDelete);
 
   return deleteBtn;
 }
 
-function deleteHander({ target: { parentElement } }) {
-  parentElement.remove();
-  const index = todoState.indexOf(parentElement.firstChild.textContent);
+function deleteHander({
+  target: {
+    dataset: { value },
+  },
+}) {
+  this.remove();
+  const index = todoState.indexOf(value);
 
   todoState.splice(index, 1);
 }
