@@ -17,19 +17,7 @@ function generateUserCard(userObj) {
   const cardArticle = document.createElement('article');
   cardArticle.classList.add('cardContainer');
 
-  const imgWrapper = document.createElement('div');
-  imgWrapper.classList.add('cardImgWrapper');
-
-  const userImg = document.createElement('img');
-  userImg.classList.add('cardImg');
-  userImg.src = userObj.profilePicture;
-  userImg.alt = fullName;
-
-  const initials = document.createElement('p');
-  initials.textContent = getInitials(fullName);
-  initials.classList.add('initials');
-
-  imgWrapper.append(userImg, initials);
+  const imgWrapper = createUserCardImageWrapper(userObj, fullName);
 
   const cardName = document.createElement('h2');
   cardName.classList.add('cardName');
@@ -46,3 +34,37 @@ function generateUserCard(userObj) {
   return card;
 }
 
+function createUserCardImageWrapper(userObj, fullName) {
+  const userImgElem = createElement('img', {
+    classNames: ['cardImg'],
+    attributes: { src: userObj.profilePicture, alt: fullName, hidden : true },
+  });
+
+  userImgElem.addEventListener('error', errorHandler);
+  userImgElem.addEventListener('load', loadHandler);
+
+  const initialsElem = createElement(
+    'div',
+    { classNames: ['initials'] },
+    getInitials(fullName)
+  );
+
+  const imgWrapperElem = createElement(
+    'div',
+    { classNames: ['cardImgWrapper'] },
+    userImgElem,
+    initialsElem
+  );
+
+  return imgWrapperElem;
+}
+
+function errorHandler({ target }) {
+  target.remove();
+}
+
+function loadHandler(event) {
+  console.log(event.target);
+
+  event.target.hidden = false;
+}
