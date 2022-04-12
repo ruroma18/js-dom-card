@@ -37,7 +37,11 @@ function generateUserCard(userObj) {
 function createUserCardImageWrapper(userObj, fullName) {
   const userImgElem = createElement('img', {
     classNames: ['cardImg'],
-    attributes: { src: userObj.profilePicture, alt: fullName, hidden : true },
+    attributes: {
+      src: userObj.profilePicture,
+      alt: fullName,
+      'data-id': userObj.id,
+    },
   });
 
   userImgElem.addEventListener('error', errorHandler);
@@ -51,8 +55,10 @@ function createUserCardImageWrapper(userObj, fullName) {
 
   const imgWrapperElem = createElement(
     'div',
-    { classNames: ['cardImgWrapper'] },
-    userImgElem,
+    {
+      classNames: ['cardImgWrapper'],
+      attributes: { id: `imgWrapper${userObj.id}` },
+    },
     initialsElem
   );
 
@@ -63,8 +69,11 @@ function errorHandler({ target }) {
   target.remove();
 }
 
-function loadHandler(event) {
-  console.log(event.target);
-
-  event.target.hidden = false;
+function loadHandler({
+  target,
+  target: {
+    dataset: { id },
+  },
+}) {
+  document.getElementById(`imgWrapper${id}`).append(target);
 }
