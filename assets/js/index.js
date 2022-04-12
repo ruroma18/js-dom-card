@@ -1,62 +1,48 @@
 'use strict';
 
-const form = document.getElementById('todo-form');
-const todoList = document.getElementById('todo-list');
+const cardsContainer = document.getElementById('root');
 
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const {
-    target: { elements },
-    target,
-  } = e;
+const cards = responseData.map((userDataObj) => generateUserCard(userDataObj));
 
-  const taskText = elements.task.value.trim();
+cardsContainer.append(...cards);
 
-  if (taskText) {
-    todoState.push(taskText);
+function generateUserCard(userObj) {
+  const fullName =
+    `${userObj.firstName} ${userObj.lastName}`.trim() ||
+    CARD_CONSTANTS.userName;
 
-    const li = createLiElement(taskText);
-    todoList.append(li);
-  }
+  const card = document.createElement('li');
+  card.classList.add('userCardWrapper');
 
-  target.reset();
-});
+  const cardArticle = document.createElement('article');
+  cardArticle.classList.add('cardContainer');
 
-function createLiElement(taskText) {
-  const li = document.createElement('li');
-  const liTextContent = document.createTextNode(taskText);
+  const imgWrapper = document.createElement('div');
+  imgWrapper.classList.add('cardImgWrapper');
 
-  const handlerWithLiThis = deleteHander.bind(li);
+  const userImg = document.createElement('img');
+  userImg.classList.add('cardImg');
+  userImg.src = userObj.profilePicture;
+  userImg.alt = fullName;
 
-  li.append(liTextContent, createDeleteBtn(handlerWithLiThis, taskText));
+  const initials = document.createElement('p');
+  initials.textContent = getInitials(fullName);
+  initials.classList.add('initials');
 
-  return li;
+  imgWrapper.append(userImg, initials);
+
+  const cardName = document.createElement('h2');
+  cardName.classList.add('cardName');
+  cardName.textContent = fullName;
+
+  const cardDescription = document.createElement('p');
+  cardDescription.classList.add('cardDescription');
+  cardDescription.textContent =
+    userObj.description || CARD_CONSTANTS.cardDescription;
+
+  cardArticle.append(imgWrapper, cardName, cardDescription);
+
+  card.append(cardArticle);
+  return card;
 }
 
-function createDeleteBtn(onDelete, taskText) {
-  const deleteBtn = document.createElement('button');
-  deleteBtn.setAttribute('data-value', taskText);
-  deleteBtn.textContent = 'Удалить';
-  deleteBtn.addEventListener('click', onDelete);
-
-  return deleteBtn;
-}
-
-function deleteHander({
-  target: {
-    dataset: { value },
-  },
-}) {
-  this.remove();
-  const index = todoState.indexOf(value);
-
-  todoState.splice(index, 1);
-}
-
-/*
-  todo-list 
-  у вас есть инпутик в который вы вводите задачу которую 
-  задачи должны появится в отдельном списке как элементы в верстке
-  и одновременно заносится в качестве строк в отдельный массив
-*/
-const todoState = [];
