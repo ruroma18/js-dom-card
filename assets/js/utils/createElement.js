@@ -1,5 +1,5 @@
 function createElement(tagName, options, ...children) {
-  const { classNames = [], attributes = {} } = options;
+  const { classNames = [], attributes = {}, event = {} } = options;
   const elem = document.createElement(tagName);
 
   for (let i = 0; i < classNames.length; i++) {
@@ -9,6 +9,11 @@ function createElement(tagName, options, ...children) {
   for (const attributePair of Object.entries(attributes)) {
     const [attributeKey, attributeValue] = attributePair;
     elem.setAttribute(attributeKey, attributeValue);
+  }
+
+  for (const eventPair of Object.entries(event)) {
+    const [eventName, eventFunction] = eventPair;
+    elem.addEventListener(eventName, eventFunction);
   }
 
   elem.append(...children);
