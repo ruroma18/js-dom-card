@@ -11,27 +11,42 @@ function generateUserCard(userObj) {
     `${userObj.firstName} ${userObj.lastName}`.trim() ||
     CARD_CONSTANTS.userName;
 
-  const card = document.createElement('li');
-  card.classList.add('userCardWrapper');
+  const card = createUserCardList();
 
-  const cardArticle = document.createElement('article');
-  cardArticle.classList.add('cardContainer');
+  const cardArticle = createUserCardArticle();
 
   const imgWrapper = createUserCardImageWrapper(userObj, fullName);
 
-  const cardName = document.createElement('h2');
-  cardName.classList.add('cardName');
-  cardName.textContent = fullName;
+  const cardName = createUserCardName(fullName);
 
-  const cardDescription = document.createElement('p');
-  cardDescription.classList.add('cardDescription');
-  cardDescription.textContent =
-    userObj.description || CARD_CONSTANTS.cardDescription;
+  const cardDescription = createUserCardDescription(userObj, CARD_CONSTANTS);
 
   cardArticle.append(imgWrapper, cardName, cardDescription);
 
   card.append(cardArticle);
   return card;
+}
+
+function createUserCardList() {
+  const userCardList = createElement('li', { classNames: ['userCardWrapper'] });
+  return userCardList;
+}
+
+function createUserCardArticle() {
+  const userCardArticle = createElement('article', { classNames: ['cardContainer'] });
+  return userCardArticle;
+};
+
+function createUserCardName(fullName) {
+  const userCardName = createElement('h2', { classNames: ['cardName'] });
+  userCardName.textContent = fullName;
+  return userCardName;
+};
+
+function createUserCardDescription(userObj, CARD_CONSTANTS) {
+  const userCardDescription = createElement('p', { classNames : ['cardDescription']});
+  userCardDescription.textContent = userObj.description || CARD_CONSTANTS.cardDescription;
+  return userCardDescription;
 }
 
 function createUserCardImageWrapper(userObj, fullName) {

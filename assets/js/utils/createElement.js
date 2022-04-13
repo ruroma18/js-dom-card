@@ -6,14 +6,6 @@ function createElement(tagName, options, ...children) {
     elem.classList.add(classNames[i]);
   }
 
-  /*
-    attributes = {
-      src: 'http:///cdgvfdv',
-      alt: 'test pic'
-    }
-
-  */
-
   for (const attributePair of Object.entries(attributes)) {
     const [attributeKey, attributeValue] = attributePair;
     elem.setAttribute(attributeKey, attributeValue);
