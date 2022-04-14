@@ -5,12 +5,7 @@ const CARD_CONSTANTS = {
 };
 
 const SUPPORTED_SOCIAL_NETWORKS = new Map([
-  [
-    'twitter.com',
-    {
-      src: 'https://w7.pngwing.com/pngs/872/50/png-transparent-computer-icons-social-media-logo-twitter-social-media-blue-logo-social-media-thumbnail.png',
-      alt: 'twitter link for',
-    },
-  ],
-  ['www.facebook.com', ],
+  ['twitter.com', 'fa-twitter'],
+  ['www.facebook.com', 'fa-facebook'],
+  ['www.instagram.com', 'fa-instagram']
 ]);

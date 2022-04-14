@@ -11,43 +11,48 @@ function generateUserCard(userObj) {
     `${userObj.firstName} ${userObj.lastName}`.trim() ||
     CARD_CONSTANTS.userName;
 
-  const card = createUserCardList();
+  const card = createElement('li', { classNames: ['userCardWrapper'] });
 
-  const cardArticle = createUserCardArticle();
+  const cardArticle = createElement('article', { classNames: ['cardContainer'] });;
 
   const imgWrapper = createUserCardImageWrapper(userObj, fullName);
 
-  const cardName = createUserCardName(fullName);
+  const cardName = createElement('h2', { classNames: ['cardName'] }, fullName);
 
-  const cardDescription = createUserCardDescription(userObj, CARD_CONSTANTS);
+  const cardDescription = createUserCardDescription(userObj);
 
-  cardArticle.append(imgWrapper, cardName, cardDescription);
+  const cardIconList = createElement('ul', { classNames: ['iconContainer'] });
+
+  const cardIcons = createUserCardIcons(userObj);
+
+  cardArticle.append(imgWrapper, cardName, cardDescription, cardIconList);
+
+  cardIconList.append(...cardIcons);
 
   card.append(cardArticle);
   return card;
 }
 
-function createUserCardList() {
-  const userCardList = createElement('li', { classNames: ['userCardWrapper'] });
-  return userCardList;
-}
-
-function createUserCardArticle() {
-  const userCardArticle = createElement('article', { classNames: ['cardContainer'] });
-  return userCardArticle;
-};
-
-function createUserCardName(fullName) {
-  const userCardName = createElement('h2', { classNames: ['cardName'] });
-  userCardName.textContent = fullName;
-  return userCardName;
-};
-
-function createUserCardDescription(userObj, CARD_CONSTANTS) {
-  const userCardDescription = createElement('p', { classNames : ['cardDescription']});
+function createUserCardDescription(userObj) {
+  const userCardDescription = createElement('p', { classNames: ['cardDescription'] });
   userCardDescription.textContent = userObj.description || CARD_CONSTANTS.cardDescription;
   return userCardDescription;
-}
+};
+
+function createUserCardIcons(userObj) {
+  const getUserCardIcon = userObj.contacts.map((item) => {
+    const urlNames = new URL(item);
+    const urlClass = SUPPORTED_SOCIAL_NETWORKS.get(urlNames.hostname);
+    const userCardIcon = createElement('a', {
+      classNames: ['fa-brands', urlClass, 'fa-2xl', 'icon-color'],
+      attributes: {
+        href: item,
+      }
+    })
+    return userCardIcon;
+  })
+  return getUserCardIcon;
+};
 
 function createUserCardImageWrapper(userObj, fullName) {
   const userImgElem = createElement('img', {
